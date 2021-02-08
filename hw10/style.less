@@ -1,0 +1,78 @@
+@color: rgb(255, 217, 0);
+@font-type: sans-serif;
+@align: center;
+@border-color: black;
+@color1: rgb(68, 43, 10);
+@light-color: lighten(@color,35%);
+@color2: rgb(38, 0, 255);
+@color-white: white;
+@colors: darkslateblue mediumorchid seagreen steelblue;
+
+body{
+    background-color: @color;
+    font-family: @font-type;
+    text-align: @align;
+}
+h1{
+    .bordered;
+    .larger-font;
+    .border-round(25px)
+}
+.bordered{
+    border: 2px @border-color solid;
+}
+.larger-font{
+    font-size: 250%;
+}
+.btnn{
+    cursor: pointer;
+    .bordered;
+    background-color: @color1;
+    .border-round(15px);
+    .larger-font;
+    .text-color(@color1);
+    .btn-hover;
+}
+.border-round(@round){
+    border-radius: @round;
+}
+.text-color(@color1) when (lightness(@color1)>=50%){
+    color: black;
+}.text-color(@color1) when (lightness(@color1)<50%){
+    color: white;
+}
+ol#list{
+    list-style: none;
+    text-align: left;
+    font-size: xx-large;
+    background-color: @light-color;
+    li{
+        padding: 12px;
+        a{  
+            color: @color2;
+            &:hover{
+                color: black;
+            }
+        }
+    }
+}
+.btn-hover{
+    &:hover{
+        border: 3px dotted @color1;
+        background-color: @color-white;
+        .text-color(@color-white);
+    }
+}
+.recursion(@list,@i: 1) when (@i <= length(@list)) {
+    @color: extract(@list,@i);
+
+    .@{color}{
+        background-color: @color;
+    }
+    .recursion(@list, @i+1);
+}
+#divv{
+    display: flex;
+    .recursion(@colors, @i:1);
+
+}
